@@ -1,0 +1,14 @@
+body{
+    text-align: center;
+    background: url(Images/Apex_background.jpg);
+    font-size: 45px;
+   
+}
+
+h1{
+    color:white;
+}
+
+.button{
+    font-size:25px;
+}
