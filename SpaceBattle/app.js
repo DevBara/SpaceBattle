@@ -1,40 +1,67 @@
-alert("The Aliens are here! Please save us!");
+alert("Earth has been attacked by a horde of aliens!")
 
-let gameStart= prompt("Are you brave enough to defeat the aliens?", "type yes to begin then click start game");
+alert("Start Game")
 
-
-class humanShip{
-    constructor(hull, firepower, accuracy){
-        this.hull = 10;
-        this.firepower = 3;
-        this.accuracy = .6;
+class USS {
+    constructor (hull = 20, firepower = 5, accuracy = .7) {
+        this.hull = hull;
+        this.firepower = firepower;
+        this.accuracy = accuracy;
+    }
+    hullRemaining() {
+        console.log(`The USS Schwarzeneger has ${this.hull} hull remaining!`)
+    }
+    fire() {
+        if (Math.random() <= this.accuracy) {
+                console.log(`You Made it! USS Schwarzeneger did 5 damage to the Alien Ship!`);
+            aliens.hull -= ship.firepower;
+        } else {
+                   console.log("You Missed Fire")
+        }
     }
 }
 
-class alienShip{
-    constructor(hull,firepower,accuracy){
-        this.hull =15;
-        this.firepower =2;
-        this.accuracy =.5;
+
+
+const ship = new USS ();
+class AlienShip {
+constructor (hull = 20, firepower = 2, accuracy = .6) {
+        this.hull = (Math.floor(Math.random() * (6 - 3)) + 3); // between 3 - 6
+        this.firepower = (Math.floor(Math.random() * (4 - 2)) + 2); // between 2-4
+        this.accuracy = ((Math.random() * (8 - 6) + 6) / 10); // between .6 & .8
+    }
+    hullRemaining() {
+        console.log(`This Alien Ship has ${this.hull} hull remaining!`)
+    }
+    fire() {
+        if (Math.random() <= this.accuracy) {
+                    console.log(`You Have Been Hit By Alien Ship!`);
+            ship.hull -= aliens.firepower;
+        } else {
+            console.log("Your attack missed!");
+            console.log("The Aliens attack missed!");
+        }
     }
 }
+const alien1 = new AlienShip ();
+const alien2 = new AlienShip ();
+const alien3 = new AlienShip ();
 
-// //Need a function that connects to button to initiate attack and subtracts hull
-// //may need to use math random
 
 
- /// attack function 'works' but it is not returning any information on the console.   
- // Connect class properties?
- function attack(){ 
-     document.getElementById('start').innerHTML= 'attack';
-    if (Math.random() <= this.accuracy) {
-    alienShip.hull -= humanShip.firepower;
-    } else {
-    console.log("You hit the aliens!")
-}
- }
- 
-//Restarts the game
-function restart(){
-    window.location.reload(); 
-}
+
+const aliens = new AlienShip ();
+function checkWin() {
+     if (aliens.hull <= 0) {
+        console.log(`You Won!`);
+    } else if (ship.hull <= 0) {
+        console.log(`The Aliens have defeated the USS Schwarzeneger`);
+    } else if (ship.hull > 0 && aliens.hull > 0) {
+           ship.fire();
+           aliens.hullRemaining();
+           aliens.fire();
+           ship.hullRemaining();
+           checkWin();
+        }
+        }  
+checkWin();
